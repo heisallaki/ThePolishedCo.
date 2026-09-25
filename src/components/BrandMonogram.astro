@@ -1,0 +1,60 @@
+---
+import { business } from "../config/business";
+---
+
+<a href="/" class="brand-mark" aria-label={`${business.shortName} home`}>
+  <span class="brand-badge" aria-hidden="true">TPC</span>
+  <span class="brand-name">{business.shortName}</span>
+</a>
+
+<style>
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    text-decoration: none;
+    padding: var(--space-3xs);
+    border-radius: var(--radius-pill);
+    transition: transform var(--transition-fast);
+  }
+
+  .brand-mark:hover {
+    transform: translateY(-1px);
+  }
+
+  .brand-mark:active {
+    transform: translateY(0);
+  }
+
+  .brand-badge {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    color: var(--color-rose-900);
+    background: linear-gradient(145deg, #fdf0f5 0%, #f6c6db 55%, #f2a9c6 100%);
+    box-shadow:
+      0 6px 16px rgba(194, 58, 111, 0.35),
+      inset 0 1px 1px rgba(255, 255, 255, 0.85),
+      0 0 0 1.5px var(--color-gold-400);
+  }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--color-rose-900);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    .brand-name {
+      display: none;
+    }
+  }
+</style>

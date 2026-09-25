@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import GlassCard from "../components/GlassCard.astro";
+import Button from "../components/Button.astro";
+import { social } from "../config/social";
+---
+
+<BaseLayout title="Gallery" description="Real client work from The Polished Co. Ke, coming soon to this gallery.">
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Coming Soon"
+        title="Gallery"
+        description="Real client work from Polished by Jael and Lash Luxe is being curated into a proper gallery — it will live here in the next phase."
+      />
+      <div class="stub-wrap">
+        <GlassCard padding="lg">
+          <p>Follow along on social media to see fresh work in the meantime.</p>
+          <Button href={social.instagram.url} variant="primary" target="_blank">
+            View on Instagram
+          </Button>
+        </GlassCard>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stub-wrap {
+    max-width: 560px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .stub-wrap p {
+    margin-bottom: var(--space-md);
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+import BrandMonogram from "./BrandMonogram.astro";
+import { business } from "../config/business";
+import { social } from "../config/social";
+import { primaryNav } from "../config/navigation";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <BrandMonogram />
+      <p>{business.tagline}</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        {primaryNav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="footer-contact">
+      <p>{business.location.display}</p>
+      <p><a href={`tel:${business.phone}`}>{business.phoneDisplay}</a></p>
+      <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
+      <div class="footer-social">
+        <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">TikTok</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>&copy; {year} {business.name}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-2xl);
+    padding-block: var(--space-xl) var(--space-lg);
+    background: linear-gradient(180deg, rgba(252, 231, 239, 0.6), rgba(255, 255, 255, 0.9));
+    border-top: 1px solid var(--border-glass-soft);
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .footer-brand p {
+    margin-top: var(--space-sm);
+    color: var(--color-ink-500);
+    max-width: 260px;
+  }
+
+  .footer-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .footer-nav a {
+    text-decoration: none;
+    color: var(--color-ink-700);
+  }
+
+  .footer-nav a:hover {
+    color: var(--color-rose-600);
+  }
+
+  .footer-contact p {
+    margin: 0 0 var(--space-2xs);
+  }
+
+  .footer-contact a {
+    text-decoration: none;
+    color: var(--color-ink-700);
+  }
+
+  .footer-contact a:hover {
+    color: var(--color-rose-600);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-2xs);
+  }
+
+  .footer-social a {
+    font-weight: 600;
+    color: var(--color-rose-600);
+  }
+
+  .footer-bottom {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-glass-soft);
+    text-align: center;
+    color: var(--color-ink-500);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+  }
+</style>

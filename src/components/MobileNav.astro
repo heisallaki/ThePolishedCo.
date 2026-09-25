@@ -1,0 +1,84 @@
+---
+import { primaryNav } from "../config/navigation";
+import { social } from "../config/social";
+import Button from "./Button.astro";
+---
+
+<nav id="mobile-nav" class="mobile-nav glass-surface" aria-label="Mobile" inert>
+  <ul class="mobile-nav-list">
+    {primaryNav.map((item) => (
+      <li>
+        <a href={item.href}>{item.label}</a>
+      </li>
+    ))}
+  </ul>
+  <div class="mobile-nav-actions">
+    <Button href="/book" variant="primary">Book Appointment</Button>
+  </div>
+  <div class="mobile-nav-social">
+    <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">TikTok</a>
+  </div>
+</nav>
+
+<style>
+  .mobile-nav {
+    position: fixed;
+    inset-inline: var(--space-sm);
+    top: calc(64px + var(--space-2xs));
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    transform: translateY(-16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+    z-index: var(--z-overlay);
+  }
+
+  .mobile-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .mobile-nav-list a {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-rose-900);
+    text-decoration: none;
+    padding: var(--space-2xs) 0;
+  }
+
+  .mobile-nav-actions {
+    display: flex;
+  }
+
+  .mobile-nav-social {
+    display: flex;
+    gap: var(--space-md);
+    font-size: 0.9rem;
+  }
+
+  .mobile-nav-social a {
+    color: var(--color-rose-600);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @media (min-width: 769px) {
+    .mobile-nav {
+      display: none;
+    }
+  }
+</style>

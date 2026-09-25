@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import GlassCard from "../components/GlassCard.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout title="Policies" description="Booking, cancellation, and privacy policies for The Polished Co. Ke.">
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Coming Soon"
+        title="Policies"
+        description="Our booking, cancellation, and privacy policies will be published here as part of a later phase."
+      />
+      <div class="stub-wrap">
+        <GlassCard padding="lg">
+          <p>Have a question about how we work? Reach out any time.</p>
+          <Button href="/contact" variant="primary">Contact Us</Button>
+        </GlassCard>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stub-wrap {
+    max-width: 560px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .stub-wrap p {
+    margin-bottom: var(--space-md);
+  }
+</style>

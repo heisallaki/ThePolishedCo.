@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import GlassCard from "../components/GlassCard.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout
+  title="Services"
+  description="Explore the collections at The Polished Co. Ke — nails, lashes, makeup, wigs, waxing, massage, and beauty retail."
+>
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Coming Soon"
+        title="Our Collections"
+        description="Nails, lashes, makeup, wigs, waxing, massage, and beauty retail — the full collection experience is being built and will land here next."
+      />
+      <div class="stub-wrap">
+        <GlassCard padding="lg">
+          <p>In the meantime, reach out directly and Jael will help you find the right service.</p>
+          <Button href="/contact" variant="primary">Get in Touch</Button>
+        </GlassCard>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stub-wrap {
+    max-width: 560px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .stub-wrap p {
+    margin-bottom: var(--space-md);
+  }
+</style>

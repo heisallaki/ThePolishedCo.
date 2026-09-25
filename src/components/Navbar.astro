@@ -1,0 +1,183 @@
+---
+import BrandMonogram from "./BrandMonogram.astro";
+import MobileNav from "./MobileNav.astro";
+import Button from "./Button.astro";
+import { primaryNav } from "../config/navigation";
+---
+
+<header class="site-nav glass-surface">
+  <div class="container nav-inner">
+    <BrandMonogram />
+    <nav class="desktop-nav" aria-label="Primary">
+      <ul>
+        {primaryNav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <Button href="/book" variant="primary" size="sm" class="nav-cta">
+        Book Appointment
+      </Button>
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<MobileNav />
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-nav);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block: var(--space-xs);
+  }
+
+  .desktop-nav ul {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .desktop-nav a {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--color-rose-900);
+    padding: var(--space-3xs) var(--space-2xs);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .desktop-nav a:hover {
+    color: var(--color-rose-600);
+    background: rgba(244, 163, 194, 0.18);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-glass-soft);
+    background: var(--surface-glass-strong);
+    cursor: pointer;
+  }
+
+  .nav-toggle-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--color-rose-900);
+    border-radius: var(--radius-pill);
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  :global(body.nav-open) {
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav {
+      display: none;
+    }
+
+    :global(.nav-cta) {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const panel = document.getElementById("mobile-nav");
+
+  if (toggle && panel) {
+    const closeMenu = () => {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+      panel.classList.remove("is-open");
+      panel.setAttribute("inert", "");
+      document.body.classList.remove("nav-open");
+    };
+
+    const openMenu = () => {
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Close menu");
+      panel.classList.add("is-open");
+      panel.removeAttribute("inert");
+      document.body.classList.add("nav-open");
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    panel.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+      if (target.closest("a")) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+  }
+</script>

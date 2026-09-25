@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf0f5"/>
+      <stop offset="100%" stop-color="#f6c6db"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f4a3c2"/>
+      <stop offset="100%" stop-color="#e0b96a"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="29" fill="url(#g1)" stroke="url(#g2)" stroke-width="3"/>
+  <text x="32" y="41" text-anchor="middle" font-family="Georgia, serif" font-size="21" font-weight="700" fill="#5c1a36">TPC</text>
+</svg>

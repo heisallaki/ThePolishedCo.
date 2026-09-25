@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import GlassCard from "../components/GlassCard.astro";
+import Button from "../components/Button.astro";
+import { business } from "../config/business";
+import { social } from "../config/social";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Reach The Polished Co. Ke in Juja, Kenya via WhatsApp, phone, email, Instagram, or TikTok."
+>
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Get in Touch"
+        title="Contact The Polished Co."
+        description="We're based in Juja, Kenya — reach out any way that suits you and Jael will get back to you."
+      />
+      <div class="contact-grid">
+        <GlassCard>
+          <h3>Message Us</h3>
+          <p>The fastest way to reach Jael for bookings and questions.</p>
+          <Button href={`https://wa.me/${business.whatsappNumber}`} variant="primary" target="_blank">
+            Message on WhatsApp
+          </Button>
+        </GlassCard>
+        <GlassCard>
+          <h3>Details</h3>
+          <p><a href={`tel:${business.phone}`}>{business.phoneDisplay}</a></p>
+          <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
+          <p>{business.location.display}</p>
+        </GlassCard>
+        <GlassCard>
+          <h3>Working Hours</h3>
+          <ul class="hours-list">
+            {business.workingHours.map((entry) => (
+              <li>
+                <span>{entry.days}</span>
+                <span>{entry.hours}</span>
+              </li>
+            ))}
+          </ul>
+        </GlassCard>
+        <GlassCard>
+          <h3>Follow Along</h3>
+          <p>See fresh work and updates on social media.</p>
+          <div class="contact-social">
+            <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">TikTok</a>
+          </div>
+        </GlassCard>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .contact-grid h3 {
+    margin-bottom: var(--space-2xs);
+  }
+
+  .hours-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .hours-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    color: var(--color-ink-700);
+  }
+
+  .contact-social {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .contact-social a {
+    color: var(--color-rose-600);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

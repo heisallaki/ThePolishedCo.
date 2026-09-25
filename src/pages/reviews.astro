@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import GlassCard from "../components/GlassCard.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout title="Reviews" description="Client reviews for The Polished Co. Ke, coming soon.">
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Coming Soon"
+        title="Reviews"
+        description="A real, dynamic space for client reviews is coming in the next phase. No placeholders here — only genuine feedback once it's live."
+      />
+      <div class="stub-wrap">
+        <GlassCard padding="lg">
+          <p>Had a great experience already? We would love to hear about it.</p>
+          <Button href="/contact" variant="primary">Get in Touch</Button>
+        </GlassCard>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stub-wrap {
+    max-width: 560px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .stub-wrap p {
+    margin-bottom: var(--space-md);
+  }
+</style>
