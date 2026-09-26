@@ -2,6 +2,7 @@
 import { primaryNav } from "../config/navigation";
 import { social } from "../config/social";
 import Button from "./Button.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 import { routes } from "../utils/url";
 ---
 
@@ -15,6 +16,7 @@ import { routes } from "../utils/url";
   </ul>
   <div class="mobile-nav-actions">
     <Button href={routes.book} variant="primary">Book Appointment</Button>
+    <ThemeToggle />
   </div>
   <div class="mobile-nav-social">
     <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -63,6 +65,9 @@ import { routes } from "../utils/url";
 
   .mobile-nav-actions {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
   }
 
   .mobile-nav-social {

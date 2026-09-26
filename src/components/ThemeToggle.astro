@@ -1,0 +1,92 @@
+<button class="theme-toggle glass-surface" type="button" data-theme-toggle aria-label="Switch to dark mode">
+  <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="4.2" fill="currentColor"></circle>
+    <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <line x1="12" y1="2.5" x2="12" y2="5"></line>
+      <line x1="12" y1="19" x2="12" y2="21.5"></line>
+      <line x1="2.5" y1="12" x2="5" y2="12"></line>
+      <line x1="19" y1="12" x2="21.5" y2="12"></line>
+      <line x1="5" y1="5" x2="6.8" y2="6.8"></line>
+      <line x1="17.2" y1="17.2" x2="19" y2="19"></line>
+      <line x1="5" y1="19" x2="6.8" y2="17.2"></line>
+      <line x1="17.2" y1="6.8" x2="19" y2="5"></line>
+    </g>
+  </svg>
+  <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border-glass-soft);
+    color: var(--color-rose-700);
+    cursor: pointer;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .theme-toggle:hover {
+    transform: translateY(-1px);
+    color: var(--color-rose-600);
+  }
+
+  .theme-icon-moon {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-icon-sun {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-icon-moon {
+    display: block;
+  }
+</style>
+
+<script>
+  const toggles = document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]");
+  const root = document.documentElement;
+
+  function getPreferredTheme(): "light" | "dark" {
+    const stored = localStorage.getItem("theme");
+    if (stored === "dark" || stored === "light") {
+      return stored;
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function applyTheme(theme: "light" | "dark") {
+    root.setAttribute("data-theme", theme);
+    toggles.forEach((toggle) => {
+      toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    });
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", theme === "dark" ? "#2b1420" : "#f6c6db");
+    }
+  }
+
+  applyTheme(getPreferredTheme());
+
+  toggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", next);
+      applyTheme(next);
+    });
+  });
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+    if (!localStorage.getItem("theme")) {
+      applyTheme(event.matches ? "dark" : "light");
+    }
+  });
+</script>

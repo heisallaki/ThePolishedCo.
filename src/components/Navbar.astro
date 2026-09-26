@@ -2,6 +2,7 @@
 import BrandMonogram from "./BrandMonogram.astro";
 import MobileNav from "./MobileNav.astro";
 import Button from "./Button.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 import { primaryNav } from "../config/navigation";
 import { routes } from "../utils/url";
 ---
@@ -19,6 +20,7 @@ import { routes } from "../utils/url";
       </ul>
     </nav>
     <div class="nav-actions">
+      <ThemeToggle />
       <Button href={routes.book} variant="primary" size="sm" class="nav-cta">
         Book Appointment
       </Button>

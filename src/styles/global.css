@@ -30,7 +30,8 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-ink-900);
-  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-pink-50) 45%, var(--color-white) 100%);
+  background: var(--surface-page);
+  transition: background 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -116,8 +117,8 @@ ol {
   position: absolute;
   top: -60px;
   left: var(--space-sm);
-  background: var(--color-rose-700);
-  color: var(--color-white);
+  background: #9c2e59;
+  color: #ffffff;
   padding: var(--space-2xs) var(--space-sm);
   border-radius: var(--radius-sm);
   z-index: var(--z-overlay);
@@ -141,6 +142,7 @@ ol {
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   border: 1px solid var(--border-glass);
   box-shadow: var(--shadow-soft);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .section {
@@ -221,6 +223,10 @@ ol {
 .btn-secondary:hover {
   background: var(--color-pink-100);
   transform: translateY(-2px);
+}
+
+:root[data-theme="dark"] .btn-secondary:hover {
+  background: rgba(244, 163, 194, 0.16);
 }
 
 .btn-ghost {

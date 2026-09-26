@@ -32,4 +32,9 @@ const label = status === "active" ? "Available Now" : "Coming Soon";
     color: var(--color-rose-700);
     background: rgba(233, 176, 201, 0.28);
   }
+
+  :global(:root[data-theme="dark"]) .status-active {
+    color: #8fe6b3;
+    background: rgba(103, 195, 145, 0.28);
+  }
 </style>

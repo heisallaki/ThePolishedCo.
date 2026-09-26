@@ -41,8 +41,9 @@ const year = new Date().getFullYear();
   .site-footer {
     margin-top: var(--space-2xl);
     padding-block: var(--space-xl) var(--space-lg);
-    background: linear-gradient(180deg, rgba(252, 231, 239, 0.6), rgba(255, 255, 255, 0.9));
+    background: var(--surface-footer);
     border-top: 1px solid var(--border-glass-soft);
+    transition: background 0.3s ease;
   }
 
   .footer-inner {
@@ -108,7 +109,6 @@ const year = new Date().getFullYear();
   @media (max-width: 768px) {
     .footer-inner {
       grid-template-columns: 1fr;
-      text-align: left;
     }
   }
 </style>
