@@ -10,11 +10,13 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "Premium nails, lashes, and beauty services in Juja, Kenya.",
+  noindex = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
@@ -41,6 +43,7 @@ const fullTitle = `${title} | The Polished Co. Ke`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -8,5 +8,9 @@ export default defineConfig({
   output: "static",
   site,
   base,
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes("/404"),
+    }),
+  ],
 });
