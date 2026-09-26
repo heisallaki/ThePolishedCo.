@@ -4,8 +4,12 @@ import Button from "../components/Button.astro";
 import GlassCard from "../components/GlassCard.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import CollectionCard from "../components/CollectionCard.astro";
+import ReviewCard from "../components/ReviewCard.astro";
 import { business } from "../config/business";
 import { collections } from "../data/collections";
+import { getReviews } from "../utils/reviews";
+
+const reviews = await getReviews();
 ---
 
 <BaseLayout
@@ -17,8 +21,8 @@ import { collections } from "../data/collections";
       <p class="hero-eyebrow">{business.location.display}</p>
       <h1>{business.tagline}</h1>
       <p class="hero-copy">
-        {business.name} is a premium beauty destination in Juja, bringing nails, lashes, and more
-        together under one polished, pink-and-gold glass roof.
+        {business.name} is a beauty destination in Juja, bringing nails, lashes, makeup, wigs, waxing, massage, and 
+        beauty essentials together in one beautiful space.
       </p>
       <div class="hero-actions">
         <Button href="/book" variant="primary" size="lg">Book Appointment</Button>
@@ -32,7 +36,7 @@ import { collections } from "../data/collections";
       <SectionHeader
         eyebrow="Our Collections"
         title="Seven Ways To Feel Polished"
-        description="From nails and lashes to makeup, wigs, waxing, massage, and beauty retail — every collection lives under one roof in Juja."
+        description="From nails and lashes to makeup, wigs, waxing, massage, and beauty retail. Every collection lives under one roof in Juja."
       />
       <div class="collections-grid">
         {collections.map((collection) => (
@@ -47,7 +51,7 @@ import { collections } from "../data/collections";
       <SectionHeader
         eyebrow="The Experience"
         title="Why The Polished Co."
-        description="A calm, glass-pink space in Juja where every detail is considered, from the first message to the final polish."
+        description="A chill beauty spot in Juja where you feel good, look good, and leave polished."
       />
       <div class="value-grid">
         <GlassCard hover>
@@ -63,6 +67,36 @@ import { collections } from "../data/collections";
           <p>Reach out on WhatsApp, Instagram, or TikTok and Jael will take it from there.</p>
         </GlassCard>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Client Reviews"
+        title="What Clients Are Saying"
+        description="Feedback from our clients."
+      />
+      {reviews.length > 0 ? (
+        <div class="home-reviews-grid">
+          {reviews.slice(0, 3).map((review) => (
+            <ReviewCard review={review} />
+          ))}
+        </div>
+      ) : (
+        <div class="home-reviews-empty">
+          <GlassCard padding="lg">
+            <h3>Your experience matters</h3>
+            <p>Be one of the first clients to share your experience with The Polished Co. Ke.</p>
+            <Button href="/reviews" variant="primary">See Reviews</Button>
+          </GlassCard>
+        </div>
+      )}
+      {reviews.length > 0 && (
+        <div class="home-reviews-cta">
+          <Button href="/reviews" variant="secondary">See All Reviews</Button>
+        </div>
+      )}
     </div>
   </section>
 
@@ -119,6 +153,33 @@ import { collections } from "../data/collections";
     .value-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  .home-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 1024px) {
+    .home-reviews-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .home-reviews-empty {
+    max-width: 560px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .home-reviews-empty p {
+    margin-bottom: var(--space-md);
+  }
+
+  .home-reviews-cta {
+    margin-top: var(--space-lg);
+    text-align: center;
   }
 
   .cta-wrap {

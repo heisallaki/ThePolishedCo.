@@ -1,22 +1,46 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import BookingForm from "../components/BookingForm.astro";
 import GlassCard from "../components/GlassCard.astro";
 import Button from "../components/Button.astro";
+import { business } from "../config/business";
+import { buildWhatsAppLink } from "../utils/whatsapp";
+
+const notSureMessage =
+  "Hi Jael, I'm interested in your services but I'm not sure which one would be best for me. Could you help me choose?";
 ---
 
 <BaseLayout title="Book" description="Book an appointment with The Polished Co. Ke in Juja, Kenya.">
   <section class="section">
     <div class="container">
       <SectionHeader
-        eyebrow="Coming Soon"
-        title="Book an Appointment"
-        description="Soon you'll be able to pick a service, choose a time, and send your request straight to Jael from this page."
+        eyebrow="Book an Appointment"
+        title="Let's Get You Booked In"
+        description="Fill in the details below and send your request straight to Jael. Appointment times are requests until Jael confirms them with you."
+        align="left"
       />
-      <div class="stub-wrap">
+      <div class="booking-hours">
+        <p>
+          Working hours: {business.workingHours.map((entry) => `${entry.days}: ${entry.hours}`).join(" · ")}
+        </p>
+        <p class="booking-hours-note">
+          Appointments outside normal hours may be arranged with Jael where appropriate.
+        </p>
+      </div>
+      <BookingForm />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="not-sure-wrap">
         <GlassCard padding="lg">
-          <p>For now, reach out directly to book your appointment.</p>
-          <Button href="/contact" variant="primary">Contact Us</Button>
+          <h2>Not sure which service you need?</h2>
+          <p>Tell Jael what you're going for and she'll help you pick the right service.</p>
+          <Button href={buildWhatsAppLink(notSureMessage)} variant="primary" target="_blank">
+            Talk to Jael on WhatsApp
+          </Button>
         </GlassCard>
       </div>
     </div>
@@ -24,13 +48,24 @@ import Button from "../components/Button.astro";
 </BaseLayout>
 
 <style>
-  .stub-wrap {
+  .booking-hours {
+    margin-bottom: var(--space-lg);
+    font-size: 0.9rem;
+    color: var(--color-ink-500);
+  }
+
+  .booking-hours-note {
+    font-style: italic;
+    margin-top: var(--space-3xs);
+  }
+
+  .not-sure-wrap {
     max-width: 560px;
     margin-inline: auto;
     text-align: center;
   }
 
-  .stub-wrap p {
+  .not-sure-wrap p {
     margin-bottom: var(--space-md);
   }
 </style>

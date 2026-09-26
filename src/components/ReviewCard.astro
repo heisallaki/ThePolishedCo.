@@ -1,0 +1,77 @@
+---
+import RatingStars from "./RatingStars.astro";
+import type { Review } from "../utils/reviews";
+
+interface Props {
+  review: Review;
+}
+
+const { review } = Astro.props;
+
+const formattedDate = (() => {
+  const parsed = new Date(review.date);
+  if (Number.isNaN(parsed.getTime())) {
+    return review.date;
+  }
+  return parsed.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+})();
+---
+
+<article class="review-card glass-surface">
+  <div class="review-top">
+    <RatingStars rating={review.rating} />
+    {formattedDate && <span class="review-date">{formattedDate}</span>}
+  </div>
+  <p class="review-text">{review.text}</p>
+  <div class="review-meta">
+    <span class="review-name">{review.name}</span>
+    {review.service && <span class="review-service">{review.service}</span>}
+  </div>
+</article>
+
+<style>
+  .review-card {
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .review-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .review-date {
+    font-size: 0.8rem;
+    color: var(--color-ink-500);
+  }
+
+  .review-text {
+    color: var(--color-ink-700);
+    margin: 0;
+  }
+
+  .review-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    font-size: 0.85rem;
+  }
+
+  .review-name {
+    font-weight: 600;
+    color: var(--color-rose-900);
+  }
+
+  .review-service {
+    color: var(--color-rose-600);
+    background: rgba(233, 176, 201, 0.28);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-pill);
+  }
+</style>

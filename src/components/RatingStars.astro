@@ -1,0 +1,32 @@
+---
+interface Props {
+  rating: number;
+}
+
+const { rating } = Astro.props;
+const rounded = Math.round(Math.min(5, Math.max(0, rating)));
+const stars = Array.from({ length: 5 }, (_, index) => index < rounded);
+---
+
+<span class="rating-stars" role="img" aria-label={`${rating} out of 5 stars`}>
+  {stars.map((filled) => (
+    <span aria-hidden="true" class={filled ? "star star-filled" : "star"}>★</span>
+  ))}
+</span>
+
+<style>
+  .rating-stars {
+    display: inline-flex;
+    gap: 2px;
+  }
+
+  .star {
+    color: var(--border-glass-soft);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .star-filled {
+    color: var(--color-gold-500);
+  }
+</style>

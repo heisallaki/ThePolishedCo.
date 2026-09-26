@@ -1,0 +1,58 @@
+---
+import { buildWhatsAppLink } from "../utils/whatsapp";
+
+const message = "Hi Jael, I have a question about The Polished Co.";
+---
+
+<a
+  href={buildWhatsAppLink(message)}
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chat on WhatsApp"
+>
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+    <path
+      fill="currentColor"
+      d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4.5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"
+    ></path>
+  </svg>
+  <span class="whatsapp-label">WhatsApp</span>
+</a>
+
+<style>
+  .whatsapp-float {
+    position: fixed;
+    left: var(--space-md);
+    bottom: var(--space-md);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: 0.75rem 1.1rem;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(135deg, #34c471, #1f9e57);
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-lift);
+    z-index: var(--z-float);
+    transition: transform var(--transition-fast);
+  }
+
+  .whatsapp-float:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 480px) {
+    .whatsapp-float {
+      left: var(--space-sm);
+      bottom: var(--space-sm);
+      padding: 0.7rem;
+    }
+
+    .whatsapp-label {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,432 @@
+---
+import { collections } from "../data/collections";
+import { business } from "../config/business";
+import { social } from "../config/social";
+
+const bookableCollections = collections
+  .filter((collection) => collection.type === "service")
+  .map((collection) => ({
+    slug: collection.slug,
+    name: collection.name,
+    pricing: collection.pricing.map((category) => ({
+      name: category.name,
+      items: category.items.map((item) => ({ name: item.name, price: item.price })),
+    })),
+  }));
+---
+
+<div class="booking-form glass-surface">
+  <form id="booking-form" novalidate>
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="booking-collection">Service</label>
+        <select id="booking-collection" name="collection" required>
+          <option value="" disabled selected>Choose a service</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="booking-category">Category</label>
+        <select id="booking-category" name="category" required disabled>
+          <option value="" disabled selected>Choose a service first</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="booking-package">Package</label>
+        <select id="booking-package" name="package" required disabled>
+          <option value="" disabled selected>Choose a category first</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="booking-date">Preferred Date</label>
+        <input id="booking-date" name="date" type="date" required />
+      </div>
+      <div class="form-field">
+        <label for="booking-time">Preferred Time</label>
+        <input id="booking-time" name="time" type="time" required />
+      </div>
+      <div class="form-field">
+        <label for="booking-name">Your Name</label>
+        <input id="booking-name" name="name" type="text" required autocomplete="name" />
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="booking-notes">Notes (optional)</label>
+      <textarea id="booking-notes" name="notes" rows="3"></textarea>
+    </div>
+  </form>
+
+  <div class="booking-preview">
+    <p class="booking-preview-label">Message Preview</p>
+    <pre id="booking-preview-text" aria-live="polite">Fill in the form above to preview your message.</pre>
+  </div>
+
+  <p class="booking-disclaimer">
+    Appointment times are requests, not confirmed bookings. Jael will confirm availability with you directly.
+  </p>
+
+  <div class="booking-channels">
+    <button type="button" id="booking-whatsapp" class="btn btn-primary btn-lg" disabled>
+      Send via WhatsApp
+    </button>
+    <button type="button" id="booking-email" class="btn btn-secondary btn-md" disabled>
+      Send via Email
+    </button>
+    <button type="button" id="booking-copy" class="btn btn-ghost btn-md" disabled>
+      Copy Message
+    </button>
+  </div>
+  <p class="booking-social-note">
+    Prefer Instagram or TikTok? Copy your message above, then send it as a DM on{" "}
+    <a href="#" data-instagram-link target="_blank" rel="noopener noreferrer">Instagram</a> {" "} or {" "}
+    <a href="#" data-tiktok-link target="_blank" rel="noopener noreferrer">TikTok</a>.
+  </p>
+</div>
+
+<style>
+  .booking-form {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .form-field label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-rose-900);
+  }
+
+  .form-field select,
+  .form-field input,
+  .form-field textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-glass-soft);
+    background: var(--color-white);
+    color: var(--color-ink-900);
+  }
+
+  .form-field select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-field textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+
+  .booking-preview {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--surface-glass-strong);
+    border: 1px solid var(--border-glass-soft);
+  }
+
+  .booking-preview-label {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-rose-600);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .booking-preview pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: var(--font-body);
+    color: var(--color-ink-700);
+    line-height: 1.6;
+  }
+
+  .booking-disclaimer {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--color-ink-500);
+    margin: 0;
+  }
+
+  .booking-channels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .booking-channels .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .booking-social-note {
+    font-size: 0.9rem;
+    color: var(--color-ink-500);
+    margin: 0;
+  }
+
+  .booking-social-note a {
+    color: var(--color-rose-600);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script
+  define:vars={{
+    bookingData: bookableCollections,
+    whatsappNumber: business.whatsappNumber,
+    contactEmail: business.email,
+    instagramUrl: social.instagram.url,
+    tiktokUrl: social.tiktok.url,
+  }}
+>
+  const collectionSelect = document.getElementById("booking-collection");
+  const categorySelect = document.getElementById("booking-category");
+  const packageSelect = document.getElementById("booking-package");
+  const dateInput = document.getElementById("booking-date");
+  const timeInput = document.getElementById("booking-time");
+  const nameInput = document.getElementById("booking-name");
+  const notesInput = document.getElementById("booking-notes");
+  const form = document.getElementById("booking-form");
+  const previewText = document.getElementById("booking-preview-text");
+  const whatsappButton = document.getElementById("booking-whatsapp");
+  const emailButton = document.getElementById("booking-email");
+  const copyButton = document.getElementById("booking-copy");
+  const instagramLink = document.querySelector("[data-instagram-link]");
+  const tiktokLink = document.querySelector("[data-tiktok-link]");
+
+  if (instagramLink) {
+    instagramLink.href = instagramUrl;
+  }
+  if (tiktokLink) {
+    tiktokLink.href = tiktokUrl;
+  }
+
+  const today = new Date().toISOString().split("T")[0];
+  dateInput.setAttribute("min", today);
+
+  const MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
+  function formatDate(value) {
+    const date = new Date(`${value}T00:00:00`);
+    return `${date.getDate()} ${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+  }
+
+  function formatTime(value) {
+    const [hoursRaw, minutes] = value.split(":");
+    let hours = Number.parseInt(hoursRaw, 10);
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    if (hours === 0) {
+      hours = 12;
+    }
+    return `${hours}:${minutes} ${period}`;
+  }
+
+  function populateCategories() {
+    const collection = bookingData.find((item) => item.slug === collectionSelect.value);
+    categorySelect.innerHTML = "";
+    packageSelect.innerHTML = "";
+
+    if (!collection) {
+      categorySelect.disabled = true;
+      packageSelect.disabled = true;
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Choose a service first";
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      categorySelect.appendChild(placeholder);
+      const packagePlaceholder = document.createElement("option");
+      packagePlaceholder.value = "";
+      packagePlaceholder.textContent = "Choose a category first";
+      packagePlaceholder.disabled = true;
+      packagePlaceholder.selected = true;
+      packageSelect.appendChild(packagePlaceholder);
+      return;
+    }
+
+    categorySelect.disabled = false;
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Choose a category";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    categorySelect.appendChild(placeholder);
+
+    collection.pricing.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.name;
+      option.textContent = category.name;
+      categorySelect.appendChild(option);
+    });
+
+    populatePackages();
+  }
+
+  function populatePackages() {
+    const collection = bookingData.find((item) => item.slug === collectionSelect.value);
+    packageSelect.innerHTML = "";
+
+    const category = collection
+      ? collection.pricing.find((item) => item.name === categorySelect.value)
+      : null;
+
+    if (!category) {
+      packageSelect.disabled = true;
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Choose a category first";
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      packageSelect.appendChild(placeholder);
+      return;
+    }
+
+    packageSelect.disabled = false;
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Choose a package";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    packageSelect.appendChild(placeholder);
+
+    category.items.forEach((item) => {
+      const option = document.createElement("option");
+      option.value = item.name;
+      option.textContent = `${item.name} — Ksh ${item.price.toLocaleString("en-US")}`;
+      packageSelect.appendChild(option);
+    });
+  }
+
+  function buildMessage() {
+    const collection = bookingData.find((item) => item.slug === collectionSelect.value);
+    const category = collection
+      ? collection.pricing.find((item) => item.name === categorySelect.value)
+      : null;
+    const item = category ? category.items.find((entry) => entry.name === packageSelect.value) : null;
+
+    if (!collection || !item || !dateInput.value || !timeInput.value || !nameInput.value.trim()) {
+      return null;
+    }
+
+    const lines = [
+      "Hi Jael, I'd like to book an appointment.",
+      `Service: ${collection.name}`,
+      `Package: ${item.name}`,
+      `Price: Ksh ${item.price.toLocaleString("en-US")}`,
+      `Preferred date: ${formatDate(dateInput.value)}`,
+      `Preferred time: ${formatTime(timeInput.value)}`,
+      `Name: ${nameInput.value.trim()}`,
+    ];
+
+    if (notesInput.value.trim()) {
+      lines.push(`Notes: ${notesInput.value.trim()}`);
+    }
+
+    return lines.join("\n");
+  }
+
+  function updatePreview() {
+    const message = buildMessage();
+    const isValid = message !== null;
+
+    previewText.textContent = message ?? "Fill in the form above to preview your message.";
+    whatsappButton.disabled = !isValid;
+    emailButton.disabled = !isValid;
+    copyButton.disabled = !isValid;
+  }
+
+  collectionSelect.addEventListener("change", () => {
+    populateCategories();
+    updatePreview();
+  });
+
+  categorySelect.addEventListener("change", () => {
+    populatePackages();
+    updatePreview();
+  });
+
+  [packageSelect, dateInput, timeInput, nameInput, notesInput].forEach((field) => {
+    field.addEventListener("input", updatePreview);
+    field.addEventListener("change", updatePreview);
+  });
+
+  bookingData.forEach((collection) => {
+    const option = document.createElement("option");
+    option.value = collection.slug;
+    option.textContent = collection.name;
+    collectionSelect.appendChild(option);
+  });
+
+  whatsappButton.addEventListener("click", () => {
+    const message = buildMessage();
+    if (!message) {
+      return;
+    }
+    window.open(
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  });
+
+  emailButton.addEventListener("click", () => {
+    const message = buildMessage();
+    if (!message) {
+      return;
+    }
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
+      "Appointment Request"
+    )}&body=${encodeURIComponent(message)}`;
+  });
+
+  copyButton.addEventListener("click", async () => {
+    const message = buildMessage();
+    if (!message) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(message);
+      const originalText = copyButton.textContent;
+      copyButton.textContent = "Copied!";
+      setTimeout(() => {
+        copyButton.textContent = originalText;
+      }, 2000);
+    } catch (error) {
+      previewText.textContent = message;
+    }
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+
+  updatePreview();
+</script>

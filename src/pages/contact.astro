@@ -5,6 +5,7 @@ import GlassCard from "../components/GlassCard.astro";
 import Button from "../components/Button.astro";
 import { business } from "../config/business";
 import { social } from "../config/social";
+import { buildWhatsAppLink } from "../utils/whatsapp";
 ---
 
 <BaseLayout
@@ -22,7 +23,11 @@ import { social } from "../config/social";
         <GlassCard>
           <h3>Message Us</h3>
           <p>The fastest way to reach Jael for bookings and questions.</p>
-          <Button href={`https://wa.me/${business.whatsappNumber}`} variant="primary" target="_blank">
+          <Button
+            href={buildWhatsAppLink("Hi Jael, I have a question about The Polished Co.")}
+            variant="primary"
+            target="_blank"
+          >
             Message on WhatsApp
           </Button>
         </GlassCard>
@@ -42,6 +47,7 @@ import { social } from "../config/social";
               </li>
             ))}
           </ul>
+          <p class="hours-note">Appointments outside normal hours may be arranged with Jael where appropriate.</p>
         </GlassCard>
         <GlassCard>
           <h3>Follow Along</h3>
@@ -78,6 +84,13 @@ import { social } from "../config/social";
     justify-content: space-between;
     gap: var(--space-sm);
     color: var(--color-ink-700);
+  }
+
+  .hours-note {
+    margin-top: var(--space-sm);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--color-ink-500);
   }
 
   .contact-social {
