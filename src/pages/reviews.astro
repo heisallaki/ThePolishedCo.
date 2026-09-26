@@ -16,12 +16,12 @@ const reviewFormUrl =
   buildWhatsAppLink("Hi Jael, I'd like to leave a review of my experience with The Polished Co.");
 ---
 
-<BaseLayout title="Reviews" description="Client reviews for The Polished Co. Ke in Juja, Kenya.">
+<BaseLayout title="Client Reviews" description="Client reviews for The Polished Co. Ke in Juja, Kenya.">
   <section class="section">
     <div class="container">
       {reviews.length > 0 ? (
         <div class="reviews-content">
-          <SectionHeader eyebrow="Client Reviews" title="What Clients Are Saying" align="left" />
+          <SectionHeader eyebrow="Client Reviews" title="What Clients Are Saying" align="left" level="h1" />
           <div class="reviews-summary">
             <RatingStars rating={averageRating} />
             <span>
@@ -42,7 +42,7 @@ const reviewFormUrl =
       ) : (
         <div class="reviews-empty">
           <GlassCard padding="lg">
-            <h2>Your experience matters</h2>
+            <h1 class="reviews-empty-title">Your experience matters</h1>
             <p>Be one of the first clients to share your experience with The Polished Co. Ke.</p>
             <Button href={reviewFormUrl} variant="primary" target="_blank">
               Leave a Review
@@ -79,6 +79,15 @@ const reviewFormUrl =
     max-width: 560px;
     margin-inline: auto;
     text-align: center;
+  }
+
+  .reviews-empty-title {
+    font-family: var(--font-display);
+    color: var(--color-rose-900);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 2.5vw + 1rem, 2.75rem);
+    line-height: 1.15;
+    margin: 0 0 var(--space-sm);
   }
 
   .reviews-empty p {

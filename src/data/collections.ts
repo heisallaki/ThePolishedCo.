@@ -18,6 +18,7 @@ export interface Collection {
   slug: string;
   name: string;
   category: string;
+  localSeoPhrase: string;
   tagline: string;
   description: string;
   type: CollectionType;
@@ -31,6 +32,7 @@ export const collections: Collection[] = [
     slug: "nails",
     name: "Polished by Jael",
     category: "Nails",
+    localSeoPhrase: "Nail services in Juja",
     tagline: "Beautiful nails. Confident you.",
     description:
       "Gel and acrylic nail services, manicures, pedicures, and nail art, done with care in Juja.",
@@ -98,6 +100,7 @@ export const collections: Collection[] = [
     slug: "lashes",
     name: "Lash Luxe",
     category: "Lashes",
+    localSeoPhrase: "Lash services in Juja",
     tagline: "Enhance your natural beauty. LONGER. FULLER. FLAWLESS.",
     description:
       "Classic to mega volume lash extensions, plus refills, lifts, and tints in Juja.",
@@ -142,8 +145,9 @@ export const collections: Collection[] = [
     slug: "makeup",
     name: "Glam Studio",
     category: "Makeup",
+    localSeoPhrase: "Makeup services in Juja",
     tagline: "Enhancing your beauty, empowering your glow.",
-    description: "Everyday, event, and bridal makeup, arriving soon at The Polished Co.",
+    description: "Everyday, event, and bridal makeup services in Juja, coming soon from Glam Studio.",
     type: "service",
     status: "coming-soon",
     pricing: [
@@ -183,8 +187,9 @@ export const collections: Collection[] = [
     slug: "wigs",
     name: "Crown Atelier",
     category: "Wig Services",
+    localSeoPhrase: "Wig installation in Juja",
     tagline: "Your crown. Your style. Your confidence.",
-    description: "Wig installation, styling, maintenance, and customization, arriving soon at The Polished Co.",
+    description: "Wig installation, styling, and maintenance in Juja, coming soon from Crown Atelier.",
     type: "service",
     status: "coming-soon",
     pricing: [
@@ -226,8 +231,9 @@ export const collections: Collection[] = [
     slug: "waxing",
     name: "Silk Studio",
     category: "Waxing",
+    localSeoPhrase: "Waxing in Juja",
     tagline: "Silky smooth. Confident you.",
-    description: "Facial to full body waxing, arriving soon at The Polished Co.",
+    description: "Facial to full body waxing in Juja, coming soon from Silk Studio.",
     type: "service",
     status: "coming-soon",
     features: ["Gentle on skin", "Hygienic & Safe", "Premium Products", "Smooth Results"],
@@ -249,8 +255,9 @@ export const collections: Collection[] = [
     slug: "massage",
     name: "Serenity Spa",
     category: "Massage",
+    localSeoPhrase: "Massage in Juja",
     tagline: "RELAX. RECHARGE. RENEW.",
-    description: "Relaxation and therapeutic massage treatments, arriving soon at The Polished Co.",
+    description: "Relaxation and therapeutic massage in Juja, coming soon from Serenity Spa.",
     type: "service",
     status: "coming-soon",
     pricing: [
@@ -285,8 +292,9 @@ export const collections: Collection[] = [
     slug: "beauty-edit",
     name: "The Beauty Edit",
     category: "Beauty Retail",
+    localSeoPhrase: "Beauty products in Juja",
     tagline: "Beauty. Live beautifully. QUALITY PRODUCTS, CURATED FOR YOU.",
-    description: "Curated bags, beauty products, hair services, and skincare, arriving soon at The Polished Co.",
+    description: "Curated bags, beauty products, hair services, and skincare in Juja, coming soon from The Beauty Edit.",
     type: "retail",
     status: "coming-soon",
     pricing: [

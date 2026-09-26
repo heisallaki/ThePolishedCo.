@@ -4,14 +4,16 @@ interface Props {
   title: string;
   description?: string;
   align?: "left" | "center";
+  level?: "h1" | "h2";
 }
 
-const { eyebrow, title, description, align = "center" } = Astro.props;
+const { eyebrow, title, description, align = "center", level = "h2" } = Astro.props;
+const Tag = level;
 ---
 
 <div class={`section-header section-header-${align}`}>
   {eyebrow && <p class="section-eyebrow">{eyebrow}</p>}
-  <h2>{title}</h2>
+  <Tag class="section-title">{title}</Tag>
   {description && <p class="section-description">{description}</p>}
 </div>
 
@@ -34,6 +36,15 @@ const { eyebrow, title, description, align = "center" } = Astro.props;
     font-weight: 600;
     color: var(--color-rose-600);
     margin-bottom: var(--space-2xs);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    color: var(--color-rose-900);
+    line-height: 1.15;
+    margin: 0 0 var(--space-sm);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 2.5vw + 1rem, 2.75rem);
   }
 
   .section-description {

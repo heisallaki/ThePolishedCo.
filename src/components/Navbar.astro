@@ -3,6 +3,7 @@ import BrandMonogram from "./BrandMonogram.astro";
 import MobileNav from "./MobileNav.astro";
 import Button from "./Button.astro";
 import { primaryNav } from "../config/navigation";
+import { routes } from "../utils/url";
 ---
 
 <header class="site-nav glass-surface">
@@ -18,7 +19,7 @@ import { primaryNav } from "../config/navigation";
       </ul>
     </nav>
     <div class="nav-actions">
-      <Button href="/book" variant="primary" size="sm" class="nav-cta">
+      <Button href={routes.book} variant="primary" size="sm" class="nav-cta">
         Book Appointment
       </Button>
       <button

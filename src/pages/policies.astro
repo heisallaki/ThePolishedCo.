@@ -3,34 +3,153 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import GlassCard from "../components/GlassCard.astro";
 import Button from "../components/Button.astro";
+import { routes } from "../utils/url";
 ---
 
-<BaseLayout title="Policies" description="Booking, cancellation, and privacy policies for The Polished Co. Ke.">
+<BaseLayout
+  title="Booking & Studio Policies"
+  description="Booking, cancellation, late arrival, payment, privacy, and photography policies for The Polished Co. Ke in Juja, Kenya."
+>
   <section class="section">
     <div class="container">
       <SectionHeader
-        eyebrow="Coming Soon"
-        title="Policies"
-        description="Our booking, cancellation, and privacy policies will be published here as part of a later phase."
+        eyebrow="Good to Know"
+        title="Booking & Studio Policies"
+        description="Plain-language answers to the questions we get most, so there are no surprises."
+        align="left"
+        level="h1"
       />
-      <div class="stub-wrap">
-        <GlassCard padding="lg">
-          <p>Have a question about how we work? Reach out any time.</p>
-          <Button href="/contact" variant="primary">Contact Us</Button>
+      <div class="policies-list">
+        <GlassCard as="article">
+          <h2>Booking Policy</h2>
+          <p>
+            You can request an appointment through this website's Booking page, or by messaging us
+            directly on WhatsApp, Instagram, or TikTok. Every request is just that; a request. Jael
+            will confirm your appointment personally once she's checked availability. Our working
+            hours are Monday–Friday and Sunday, 9:00 AM–5:00 PM; we're closed on Saturdays.
+            Appointments outside these hours can sometimes be arranged directly with Jael.
+          </p>
         </GlassCard>
+        <GlassCard as="article">
+          <h2>Cancellation & Rescheduling Policy</h2>
+          <p>
+            Plans change, and that's okay. If you need to cancel or move your appointment, please let
+            us know at least 24 hours in advance where possible, via WhatsApp or any of the contact
+            options on this site. This helps us offer that slot to another client. Frequent
+            last-minute cancellations may be discussed with you directly.
+          </p>
+        </GlassCard>
+        <GlassCard as="article">
+          <h2>Late Arrival Policy</h2>
+          <p>
+            If you're running late, message us as soon as you can we'll always try to accommodate
+            you. Arrivals more than an hour after your scheduled time may need a shorter service or
+            a reschedule, depending on the day's bookings, so that it stays fair to clients booked
+            after you.
+          </p>
+        </GlassCard>
+        <GlassCard as="article">
+          <h2>Payment Policy</h2>
+          <p>
+            No deposit is required to book payment is made at your appointment. We currently accept
+            cash and M-Pesa. All prices on this website are listed in Kenyan Shillings (Ksh) and, as
+            noted on our pricing pages, are subject to change; the exact price for your service will
+            always be confirmed with you before you're charged.
+          </p>
+        </GlassCard>
+        <GlassCard as="article">
+          <h2>Privacy Notice</h2>
+          <p>
+            This website doesn't require an account, doesn't use tracking cookies, and doesn't run
+            advertising or analytics scripts. Here's what happens with the information you share:
+          </p>
+          <ul class="policy-list">
+            <li>
+              <strong>Booking requests:</strong> the Booking page turns your name, chosen service,
+              date, time, and notes into a message that opens directly in WhatsApp or your email app
+              (or is copied for you to send via Instagram or TikTok). That message goes straight to
+              Jael it isn't stored on this website or shared with anyone else.
+            </li>
+            <li>
+              <strong>Reviews:</strong> reviews are collected through a Google Form and kept in a
+              Google Sheet, covered by Google's own privacy policy. Only reviews of our services 
+              appear on this site.
+            </li>
+            <li>
+              <strong>Contact links:</strong> the phone, email, and social links here simply open your
+              own apps, nothing is collected unless you choose to send it.
+            </li>
+          </ul>
+          <p>
+            If you have any questions about your information, reach out using the details on our
+            Contact page.
+          </p>
+        </GlassCard>
+        <GlassCard as="article">
+          <h2>Photography & Media Consent Policy</h2>
+          <p>
+            We love sharing our work; with your permission. Before featuring a photo or video of your
+            service on this website, Instagram, or TikTok, we'll ask you first. If you'd rather not be
+            featured, or want something we've already posted taken down, just tell Jael via
+            WhatsApp, email, or any contact option on this site and we'll sort it out.
+          </p>
+        </GlassCard>
+      </div>
+      <div class="policies-cta">
+        <p>Questions about any of this?</p>
+        <Button href={routes.contact} variant="primary">Contact Us</Button>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .stub-wrap {
-    max-width: 560px;
-    margin-inline: auto;
+  .policies-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .policies-list h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .policies-list p:last-child {
+    margin-bottom: 0;
+  }
+
+  .policy-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .policy-list li {
+    padding-left: var(--space-md);
+    position: relative;
+    color: var(--color-ink-700);
+    line-height: 1.7;
+  }
+
+  .policy-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-pink-400);
+  }
+
+  .policies-cta {
+    margin-top: var(--space-xl);
     text-align: center;
   }
 
-  .stub-wrap p {
-    margin-bottom: var(--space-md);
+  .policies-cta p {
+    margin-bottom: var(--space-sm);
+    color: var(--color-ink-500);
   }
 </style>

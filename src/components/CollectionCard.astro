@@ -1,6 +1,7 @@
 ---
 import StatusBadge from "./StatusBadge.astro";
 import type { Collection } from "../data/collections";
+import { routes } from "../utils/url";
 
 interface Props {
   collection: Collection;
@@ -11,7 +12,7 @@ const statusLabel = collection.status === "active" ? "available now" : "coming s
 ---
 
 <a
-  href={`/services/${collection.slug}`}
+  href={routes.service(collection.slug)}
   class="collection-card glass-surface"
   aria-label={`View ${collection.name} — ${collection.category}, ${statusLabel}`}
 >

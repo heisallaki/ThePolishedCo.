@@ -35,7 +35,11 @@ for (const category of pricing) {
       {section.group && <h3 class="pricing-group">{section.group}</h3>}
       {section.categories.map((category) => (
         <div class="pricing-category">
-          <h4>{category.name}</h4>
+          {section.group ? (
+            <h4 class="pricing-category-title">{category.name}</h4>
+          ) : (
+            <h3 class="pricing-category-title">{category.name}</h3>
+          )}
           {type === "retail" ? (
             <div class="product-grid">
               {category.items.map((item) => (
@@ -97,11 +101,12 @@ for (const category of pricing) {
     margin-top: var(--space-md);
   }
 
-  .pricing-category h4 {
+  .pricing-category-title {
     font-family: var(--font-display);
     font-size: 1.15rem;
     color: var(--color-rose-900);
     margin-bottom: var(--space-sm);
+    font-weight: 600;
   }
 
   .price-list {

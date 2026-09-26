@@ -1,8 +1,9 @@
 ---
 import { business } from "../config/business";
+import { routes } from "../utils/url";
 ---
 
-<a href="/" class="brand-mark" aria-label={`${business.shortName} home`}>
+<a href={routes.home} class="brand-mark" aria-label={`${business.shortName} home`}>
   <span class="brand-badge" aria-hidden="true">TPC</span>
   <span class="brand-name">{business.shortName}</span>
 </a>

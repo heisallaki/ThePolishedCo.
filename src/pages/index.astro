@@ -8,6 +8,7 @@ import ReviewCard from "../components/ReviewCard.astro";
 import { business } from "../config/business";
 import { collections } from "../data/collections";
 import { getReviews } from "../utils/reviews";
+import { routes } from "../utils/url";
 
 const reviews = await getReviews();
 ---
@@ -21,12 +22,12 @@ const reviews = await getReviews();
       <p class="hero-eyebrow">{business.location.display}</p>
       <h1>{business.tagline}</h1>
       <p class="hero-copy">
-        {business.name} is a beauty destination in Juja, bringing nails, lashes, makeup, wigs, waxing, massage, and 
-        beauty essentials together in one beautiful space.
+        {business.name} is a premium beauty destination in Juja, bringing nails, lashes, and more
+        together under one polished, pink-and-gold glass roof.
       </p>
       <div class="hero-actions">
-        <Button href="/book" variant="primary" size="lg">Book Appointment</Button>
-        <Button href="/services" variant="secondary" size="lg">Explore Services</Button>
+        <Button href={routes.book} variant="primary" size="lg">Book Appointment</Button>
+        <Button href={routes.services} variant="secondary" size="lg">Explore Services</Button>
       </div>
     </div>
   </section>
@@ -36,7 +37,7 @@ const reviews = await getReviews();
       <SectionHeader
         eyebrow="Our Collections"
         title="Seven Ways To Feel Polished"
-        description="From nails and lashes to makeup, wigs, waxing, massage, and beauty retail. Every collection lives under one roof in Juja."
+        description="From nails and lashes to makeup, wigs, waxing, massage, and beauty retail — every collection lives under one roof in Juja."
       />
       <div class="collections-grid">
         {collections.map((collection) => (
@@ -51,7 +52,7 @@ const reviews = await getReviews();
       <SectionHeader
         eyebrow="The Experience"
         title="Why The Polished Co."
-        description="A chill beauty spot in Juja where you feel good, look good, and leave polished."
+        description="A calm, glass-pink space in Juja where every detail is considered, from the first message to the final polish."
       />
       <div class="value-grid">
         <GlassCard hover>
@@ -75,7 +76,7 @@ const reviews = await getReviews();
       <SectionHeader
         eyebrow="Client Reviews"
         title="What Clients Are Saying"
-        description="Feedback from our clients."
+        description="Real feedback from real clients — no placeholders, ever."
       />
       {reviews.length > 0 ? (
         <div class="home-reviews-grid">
@@ -88,13 +89,13 @@ const reviews = await getReviews();
           <GlassCard padding="lg">
             <h3>Your experience matters</h3>
             <p>Be one of the first clients to share your experience with The Polished Co. Ke.</p>
-            <Button href="/reviews" variant="primary">See Reviews</Button>
+            <Button href={routes.reviews} variant="primary">See Reviews</Button>
           </GlassCard>
         </div>
       )}
       {reviews.length > 0 && (
         <div class="home-reviews-cta">
-          <Button href="/reviews" variant="secondary">See All Reviews</Button>
+          <Button href={routes.reviews} variant="secondary">See All Reviews</Button>
         </div>
       )}
     </div>
@@ -106,7 +107,7 @@ const reviews = await getReviews();
         <GlassCard padding="lg">
           <h2>Ready to feel polished?</h2>
           <p>Tell us what you have in mind and we will help you pick the perfect service.</p>
-          <Button href="/book" variant="primary" size="lg">Book Your Appointment</Button>
+          <Button href={routes.book} variant="primary" size="lg">Book Your Appointment</Button>
         </GlassCard>
       </div>
     </div>
