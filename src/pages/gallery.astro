@@ -1,39 +1,42 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
-import GlassCard from "../components/GlassCard.astro";
-import Button from "../components/Button.astro";
-import { social } from "../config/social";
+import Gallery from "../components/Gallery.astro";
+import { collections } from "../data/collections";
+import { getCollectionMedia } from "../utils/media";
 ---
 
-<BaseLayout title="Gallery" description="Real client work from The Polished Co. Ke, coming soon to this gallery.">
+<BaseLayout title="Gallery" description="Real client work from The Polished Co. Ke, organized by collection.">
   <section class="section">
     <div class="container">
       <SectionHeader
-        eyebrow="Coming Soon"
+        eyebrow="Our Work"
         title="Gallery"
-        description="Real client work from Polished by Jael and Lash Luxe is being curated into a proper gallery — it will live here in the next phase."
+        description="Real photos and videos from each collection, added directly by Jael as they're taken."
       />
-      <div class="stub-wrap">
-        <GlassCard padding="lg">
-          <p>Follow along on social media to see fresh work in the meantime.</p>
-          <Button href={social.instagram.url} variant="primary" target="_blank">
-            View on Instagram
-          </Button>
-        </GlassCard>
+      <div class="gallery-sections">
+        {collections.map((collection) => {
+          const media = getCollectionMedia(collection.slug);
+          return (
+            <div class="gallery-collection">
+              <h3>{collection.name}</h3>
+              <Gallery images={media.images} videos={media.videos} collectionName={collection.name} />
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .stub-wrap {
-    max-width: 560px;
-    margin-inline: auto;
-    text-align: center;
+  .gallery-sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
 
-  .stub-wrap p {
-    margin-bottom: var(--space-md);
+  .gallery-collection h3 {
+    margin-bottom: var(--space-sm);
   }
 </style>

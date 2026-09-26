@@ -1,0 +1,177 @@
+---
+import { formatKsh } from "../utils/format";
+import { buildWhatsAppLink } from "../utils/whatsapp";
+import Button from "./Button.astro";
+import type { PricingCategory, CollectionType } from "../data/collections";
+
+interface Props {
+  pricing: PricingCategory[];
+  type: CollectionType;
+  collectionName: string;
+}
+
+const { pricing, type, collectionName } = Astro.props;
+
+interface GroupedSection {
+  group: string | null;
+  categories: PricingCategory[];
+}
+
+const sections: GroupedSection[] = [];
+for (const category of pricing) {
+  const key = category.group ?? null;
+  const last = sections[sections.length - 1];
+  if (last && last.group === key) {
+    last.categories.push(category);
+  } else {
+    sections.push({ group: key, categories: [category] });
+  }
+}
+---
+
+<div class="pricing">
+  {sections.map((section) => (
+    <div class="pricing-section">
+      {section.group && <h3 class="pricing-group">{section.group}</h3>}
+      {section.categories.map((category) => (
+        <div class="pricing-category">
+          <h4>{category.name}</h4>
+          {type === "retail" ? (
+            <div class="product-grid">
+              {category.items.map((item) => (
+                <div class="product-card">
+                  <p class="product-name">{item.name}</p>
+                  <p class="product-price">
+                    {formatKsh(item.price)}
+                    {item.note && <span class="product-note"> · {item.note}</span>}
+                  </p>
+                  <Button
+                    href={buildWhatsAppLink(
+                      `Hi Jael, I'm interested in the ${item.name} listed on ${collectionName} for ${formatKsh(item.price)}. Is it currently available?`
+                    )}
+                    variant="secondary"
+                    size="sm"
+                    target="_blank"
+                  >
+                    Ask About Product
+                  </Button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ul class="price-list">
+              {category.items.map((item) => (
+                <li>
+                  <div class="price-row">
+                    <span class="price-name">{item.name}</span>
+                    <span class="price-amount">{formatKsh(item.price)}</span>
+                  </div>
+                  {item.description && <p class="price-description">{item.description}</p>}
+                  {item.note && <p class="price-note">{item.note}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  ))}
+</div>
+
+<style>
+  .pricing {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .pricing-group {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    color: var(--color-rose-600);
+    margin-bottom: var(--space-sm);
+  }
+
+  .pricing-category + .pricing-category {
+    margin-top: var(--space-md);
+  }
+
+  .pricing-category h4 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-rose-900);
+    margin-bottom: var(--space-sm);
+  }
+
+  .price-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .price-list li {
+    border-bottom: 1px solid var(--border-glass-soft);
+    padding-bottom: var(--space-sm);
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    font-weight: 500;
+  }
+
+  .price-amount {
+    color: var(--color-rose-700);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .price-description {
+    margin-top: var(--space-3xs);
+    font-size: 0.9rem;
+    color: var(--color-ink-500);
+  }
+
+  .price-note {
+    margin-top: var(--space-3xs);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--color-ink-500);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .product-card {
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    background: var(--surface-glass-strong);
+    border: 1px solid var(--border-glass-soft);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .product-name {
+    font-weight: 600;
+    color: var(--color-rose-900);
+    margin: 0;
+  }
+
+  .product-price {
+    color: var(--color-rose-700);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .product-note {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-ink-500);
+  }
+</style>

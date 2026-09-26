@@ -1,0 +1,35 @@
+---
+import type { CollectionStatus } from "../data/collections";
+
+interface Props {
+  status: CollectionStatus;
+}
+
+const { status } = Astro.props;
+const label = status === "active" ? "Available Now" : "Coming Soon";
+---
+
+<span class={`status-badge status-${status}`}>{label}</span>
+
+<style>
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.85rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .status-active {
+    color: #1f6b45;
+    background: rgba(103, 195, 145, 0.22);
+  }
+
+  .status-coming-soon {
+    color: var(--color-rose-700);
+    background: rgba(233, 176, 201, 0.28);
+  }
+</style>

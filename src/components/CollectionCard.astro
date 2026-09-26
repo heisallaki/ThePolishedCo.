@@ -1,0 +1,73 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+import type { Collection } from "../data/collections";
+
+interface Props {
+  collection: Collection;
+}
+
+const { collection } = Astro.props;
+const statusLabel = collection.status === "active" ? "available now" : "coming soon";
+---
+
+<a
+  href={`/services/${collection.slug}`}
+  class="collection-card glass-surface"
+  aria-label={`View ${collection.name} — ${collection.category}, ${statusLabel}`}
+>
+  <div class="collection-card-top">
+    <span class="collection-category">{collection.category}</span>
+    <StatusBadge status={collection.status} />
+  </div>
+  <h3>{collection.name}</h3>
+  <p class="collection-tagline">{collection.tagline}</p>
+  <span class="collection-link" aria-hidden="true">View Collection →</span>
+</a>
+
+<style>
+  .collection-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .collection-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .collection-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .collection-category {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-rose-600);
+  }
+
+  .collection-card h3 {
+    margin: 0;
+  }
+
+  .collection-tagline {
+    color: var(--color-ink-500);
+    margin: 0;
+  }
+
+  .collection-link {
+    margin-top: auto;
+    font-weight: 600;
+    color: var(--color-rose-600);
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import PricingTable from "../../components/PricingTable.astro";
+import PriceDisclaimer from "../../components/PriceDisclaimer.astro";
+import Gallery from "../../components/Gallery.astro";
+import ComingSoonPanel from "../../components/ComingSoonPanel.astro";
+import Button from "../../components/Button.astro";
+import { collections } from "../../data/collections";
+import type { Collection } from "../../data/collections";
+import { getCollectionMedia } from "../../utils/media";
+
+export function getStaticPaths() {
+  return collections.map((collection) => ({
+    params: { slug: collection.slug },
+    props: { collection },
+  }));
+}
+
+interface Props {
+  collection: Collection;
+}
+
+const { collection } = Astro.props;
+const media = getCollectionMedia(collection.slug);
+---
+
+<BaseLayout title={collection.name} description={`${collection.tagline} ${collection.description}`}>
+  <section class="section collection-hero">
+    <div class="container collection-hero-inner">
+      <p class="collection-eyebrow">{collection.category}</p>
+      <div class="collection-heading">
+        <h1>{collection.name}</h1>
+        <StatusBadge status={collection.status} />
+      </div>
+      <p class="collection-tagline">{collection.tagline}</p>
+      <p class="collection-description">{collection.description}</p>
+      {collection.features && (
+        <ul class="collection-features">
+          {collection.features.map((feature) => (
+            <li>{feature}</li>
+          ))}
+        </ul>
+      )}
+      {collection.status === "active" && (
+        <div class="collection-actions">
+          <Button href="/book" variant="primary" size="lg">Book Appointment</Button>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {collection.status === "coming-soon" && (
+    <section class="section collection-coming-soon">
+      <div class="container">
+        <ComingSoonPanel collectionName={collection.name} />
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="Pricing" title="Services & Pricing" align="left" />
+      <PricingTable pricing={collection.pricing} type={collection.type} collectionName={collection.name} />
+      <PriceDisclaimer />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="Gallery" title="Recent Work" align="left" />
+      <Gallery images={media.images} videos={media.videos} collectionName={collection.name} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .collection-hero-inner {
+    max-width: 760px;
+  }
+
+  .collection-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-rose-600);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .collection-heading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .collection-heading h1 {
+    margin-bottom: 0;
+  }
+
+  .collection-tagline {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-rose-700);
+    margin-top: var(--space-sm);
+  }
+
+  .collection-description {
+    max-width: 620px;
+  }
+
+  .collection-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin: var(--space-sm) 0;
+  }
+
+  .collection-features li {
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: var(--surface-glass-strong);
+    border: 1px solid var(--border-glass-soft);
+    font-size: 0.85rem;
+    color: var(--color-rose-900);
+  }
+
+  .collection-actions {
+    margin-top: var(--space-md);
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+import Button from "./Button.astro";
+import { social } from "../config/social";
+import { buildWhatsAppLink } from "../utils/whatsapp";
+
+interface Props {
+  collectionName: string;
+}
+
+const { collectionName } = Astro.props;
+const message = `Hi Jael, I'm interested in ${collectionName}. Could you let me know when it launches?`;
+---
+
+<div class="coming-soon-panel glass-surface">
+  <p class="coming-soon-eyebrow">Launching Soon</p>
+  <h2>{collectionName} is on its way</h2>
+  <p>We're putting the finishing touches on this collection. Reach out and we'll let you know the moment it's ready.</p>
+  <div class="coming-soon-actions">
+    <Button href={buildWhatsAppLink(message)} variant="primary" target="_blank">
+      Get Notified on WhatsApp
+    </Button>
+    <Button href={social.instagram.url} variant="secondary" target="_blank">
+      Follow on Instagram
+    </Button>
+  </div>
+</div>
+
+<style>
+  .coming-soon-panel {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .coming-soon-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-rose-600);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .coming-soon-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-md);
+  }
+</style>
