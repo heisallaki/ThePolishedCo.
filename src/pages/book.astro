@@ -4,6 +4,7 @@ import SectionHeader from "../components/SectionHeader.astro";
 import BookingForm from "../components/BookingForm.astro";
 import GlassCard from "../components/GlassCard.astro";
 import Button from "../components/Button.astro";
+import SocialIcon from "../components/SocialIcon.astro";
 import { business } from "../config/business";
 import { buildWhatsAppLink } from "../utils/whatsapp";
 
@@ -11,7 +12,7 @@ const notSureMessage =
   "Hi Jael, I'm interested in your services but I'm not sure which one would be best for me. Could you help me choose?";
 ---
 
-<BaseLayout title="Book an Appointment in Juja" description="Book a nail, lash, or beauty appointment with The Polished Co. Ke in Juja, Kenya.">
+<BaseLayout title="Book an Appointment in Juja" description="Book a nail, lash, or beauty appointment with The Polished Co. Ke.">
   <section class="section">
     <div class="container">
       <SectionHeader
@@ -40,6 +41,7 @@ const notSureMessage =
           <h2>Not sure which service you need?</h2>
           <p>Tell Jael what you're going for and she'll help you pick the right service.</p>
           <Button href={buildWhatsAppLink(notSureMessage)} variant="primary" target="_blank">
+            <SocialIcon platform="whatsapp" size={18} />
             Talk to Jael on WhatsApp
           </Button>
         </GlassCard>

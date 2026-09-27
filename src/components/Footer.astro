@@ -1,5 +1,6 @@
 ---
 import BrandMonogram from "./BrandMonogram.astro";
+import SocialIcon from "./SocialIcon.astro";
 import { business } from "../config/business";
 import { social } from "../config/social";
 import { primaryNav } from "../config/navigation";
@@ -27,8 +28,14 @@ const year = new Date().getFullYear();
       <p><a href={`tel:${business.phone}`}>{business.phoneDisplay}</a></p>
       <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
       <div class="footer-social">
-        <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">
+          <SocialIcon platform="instagram" size={18} />
+          <span>Instagram</span>
+        </a>
+        <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">
+          <SocialIcon platform="tiktok" size={18} />
+          <span>TikTok</span>
+        </a>
       </div>
     </div>
   </div>
@@ -93,8 +100,12 @@ const year = new Date().getFullYear();
   }
 
   .footer-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
     font-weight: 600;
     color: var(--color-rose-600);
+    text-decoration: none;
   }
 
   .footer-bottom {

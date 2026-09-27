@@ -3,6 +3,7 @@ import { primaryNav } from "../config/navigation";
 import { social } from "../config/social";
 import Button from "./Button.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import SocialIcon from "./SocialIcon.astro";
 import { routes } from "../utils/url";
 ---
 
@@ -19,8 +20,14 @@ import { routes } from "../utils/url";
     <ThemeToggle />
   </div>
   <div class="mobile-nav-social">
-    <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">Instagram</a>
-    <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">
+      <SocialIcon platform="instagram" size={18} />
+      <span>Instagram</span>
+    </a>
+    <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">
+      <SocialIcon platform="tiktok" size={18} />
+      <span>TikTok</span>
+    </a>
   </div>
 </nav>
 
@@ -77,6 +84,9 @@ import { routes } from "../utils/url";
   }
 
   .mobile-nav-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
     color: var(--color-rose-600);
     text-decoration: none;
     font-weight: 500;

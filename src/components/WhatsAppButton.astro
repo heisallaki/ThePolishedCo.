@@ -1,5 +1,6 @@
 ---
 import { buildWhatsAppLink } from "../utils/whatsapp";
+import SocialIcon from "./SocialIcon.astro";
 
 const message = "Hi Jael, I have a question about The Polished Co.";
 ---
@@ -11,12 +12,7 @@ const message = "Hi Jael, I have a question about The Polished Co.";
   rel="noopener noreferrer"
   aria-label="Chat on WhatsApp"
 >
-  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
-    <path
-      fill="currentColor"
-      d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4.5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"
-    ></path>
-  </svg>
+  <SocialIcon platform="whatsapp" size={22} />
   <span class="whatsapp-label">WhatsApp</span>
 </a>
 

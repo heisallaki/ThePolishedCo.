@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+import SocialIcon from "./SocialIcon.astro";
 import { social } from "../config/social";
 import { buildWhatsAppLink } from "../utils/whatsapp";
 
@@ -17,9 +18,11 @@ const message = `Hi Jael, I'm interested in ${collectionName}. Could you let me 
   <p>We're putting the finishing touches on this collection. Reach out and we'll let you know the moment it's ready.</p>
   <div class="coming-soon-actions">
     <Button href={buildWhatsAppLink(message)} variant="primary" target="_blank">
+      <SocialIcon platform="whatsapp" size={18} />
       Get Notified on WhatsApp
     </Button>
     <Button href={social.instagram.url} variant="secondary" target="_blank">
+      <SocialIcon platform="instagram" size={18} />
       Follow on Instagram
     </Button>
   </div>

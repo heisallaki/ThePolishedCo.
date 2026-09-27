@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import GlassCard from "../components/GlassCard.astro";
 import Button from "../components/Button.astro";
+import SocialIcon from "../components/SocialIcon.astro";
 import { business } from "../config/business";
 import { social } from "../config/social";
 import { buildWhatsAppLink } from "../utils/whatsapp";
@@ -29,6 +30,7 @@ import { buildWhatsAppLink } from "../utils/whatsapp";
             variant="primary"
             target="_blank"
           >
+            <SocialIcon platform="whatsapp" size={18} />
             Message on WhatsApp
           </Button>
         </GlassCard>
@@ -54,8 +56,14 @@ import { buildWhatsAppLink } from "../utils/whatsapp";
           <h3>Follow Along</h3>
           <p>See fresh work and updates on social media.</p>
           <div class="contact-social">
-            <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href={social.instagram.url} target="_blank" rel="noopener noreferrer">
+              <SocialIcon platform="instagram" size={20} />
+              <span>Instagram</span>
+            </a>
+            <a href={social.tiktok.url} target="_blank" rel="noopener noreferrer">
+              <SocialIcon platform="tiktok" size={20} />
+              <span>TikTok</span>
+            </a>
           </div>
         </GlassCard>
       </div>
@@ -100,6 +108,9 @@ import { buildWhatsAppLink } from "../utils/whatsapp";
   }
 
   .contact-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
     color: var(--color-rose-600);
     font-weight: 600;
     text-decoration: none;
