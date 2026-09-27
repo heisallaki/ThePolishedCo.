@@ -1,3 +1,5 @@
+![The Polished Co. Ke preview](.github/preview.png)
+
 # The Polished Co. Ke
 
 Website for **The Polished Co. Ke**, a beauty studio in Juja, Kenya run by Jael offering nails, lashes, makeup, wigs, waxing, massage services, and beauty retail.
