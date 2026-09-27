@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@10.9.2",
+  "author": "Alvin Kipng'eno Langat",
+  "license": "MIT",
   "engines": {
     "node": ">=22.12.0"
   },
