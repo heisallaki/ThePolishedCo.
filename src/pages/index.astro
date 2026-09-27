@@ -15,15 +15,14 @@ const reviews = await getReviews();
 
 <BaseLayout
   title="Home"
-  description="The Polished Co. Ke is a premium beauty destination in Juja, Kenya, offering nails, lashes, and more."
+  description="The Polished Co. Ke is your go to beauty destination in Juja, offering quality beauty services, thoughtful care, and a polished finish."
 >
   <section class="hero section">
     <div class="container hero-inner">
       <p class="hero-eyebrow">{business.location.display}</p>
       <h1>{business.tagline}</h1>
       <p class="hero-copy">
-        {business.name} is a premium beauty destination in Juja, bringing nails, lashes, and more
-        together under one polished, pink-and-gold glass roof.
+        {business.name} is your beauty destination in Juja, where every look gets the polished treatment.
       </p>
       <div class="hero-actions">
         <Button href={routes.book} variant="primary" size="lg">Book Appointment</Button>
@@ -37,7 +36,7 @@ const reviews = await getReviews();
       <SectionHeader
         eyebrow="Our Collections"
         title="Seven Ways To Feel Polished"
-        description="From nails and lashes to makeup, wigs, waxing, massage, and beauty retail — every collection lives under one roof in Juja."
+        description="From nails, lashes, makeup, wigs, waxing, massage, to beauty retail. Every collection lives under one roof."
       />
       <div class="collections-grid">
         {collections.map((collection) => (
@@ -52,7 +51,7 @@ const reviews = await getReviews();
       <SectionHeader
         eyebrow="The Experience"
         title="Why The Polished Co."
-        description="A calm, glass-pink space in Juja where every detail is considered, from the first message to the final polish."
+        description="A welcoming beauty space where every detail is thoughtfully handled, from your first message to your final look."
       />
       <div class="value-grid">
         <GlassCard hover>
@@ -61,7 +60,7 @@ const reviews = await getReviews();
         </GlassCard>
         <GlassCard hover>
           <h3>One home for beauty</h3>
-          <p>Nails today, lashes next week — one trusted studio for every part of your look.</p>
+          <p>Nails today, lashes next week; one trusted studio for every part of your look.</p>
         </GlassCard>
         <GlassCard hover>
           <h3>Booking made simple</h3>
@@ -76,7 +75,7 @@ const reviews = await getReviews();
       <SectionHeader
         eyebrow="Client Reviews"
         title="What Clients Are Saying"
-        description="Real feedback from real clients — no placeholders, ever."
+        description="Feedback from our clients."
       />
       {reviews.length > 0 ? (
         <div class="home-reviews-grid">
